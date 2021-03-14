@@ -1,6 +1,7 @@
 ﻿using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace Backend.Controllers
@@ -11,13 +12,17 @@ namespace Backend.Controllers
     public class TestController : BaseController
     {
         private readonly TestService service;
+        private readonly ILogger<TestController> logger;
 
         /// <summary>
         /// 
         /// </summary>
-        public TestController(TestService service)
+        public TestController(
+            TestService service,
+            ILogger<TestController> logger)
         {
             this.service = service;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -27,6 +32,8 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            logger.LogInformation("Get service called");
+
             return Ok(await service.GetAll());
         }
 
@@ -41,7 +48,14 @@ namespace Backend.Controllers
             TestModel model = await service.Get(id);
 
             if (model == null)
+            {
+                logger.LogError($"GetById {id} not found");
+
                 return NotFound("Description not found");
+            }
+
+
+            logger.LogInformation("GetById service called");
 
             return Ok(model);
         }

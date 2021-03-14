@@ -4,13 +4,23 @@
 A starter .NET Core project with Dapper & MySQL and some preset features:
 
 - Controller with authorization
-- NSLog
+- NLog
 - AutoMapper
 - Swagger
 - User secrets
 - AppSettings info in object class
 - MemCached (coming soon)
 - AWS S3 (coming soon)
+- Sentry (coming soon)
+- ClientCaching (coming soon)
+
+## Commit legend:
+```sh
++ New feature
+* Changed or improved feature
+! Bugfix
+- Deprecated feature
+```
 
 ## License
 ```sh
