@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Backend.Interfaces;
 using Backend.Models;
+using Backend.Types;
+using Newtonsoft.Json;
 
 namespace Backend.Services
 {
@@ -11,14 +13,18 @@ namespace Backend.Services
     public class TestService
     {
         private readonly ITestRepository repo;
+        private readonly IMemCachedService memCachedService;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="service"></param>
-        public TestService(ITestRepository repo)
+        public TestService(
+            ITestRepository repo,
+            IMemCachedService memCachedService)
         {
             this.repo = repo;
+            this.memCachedService = memCachedService;
         }
 
         /// <summary>
@@ -27,7 +33,22 @@ namespace Backend.Services
         /// <returns></returns>
         public async Task<IEnumerable<TestModel>> GetAll()
         {
-            return await repo.GetAll();
+            string cacheKey = MemCachedType.GetAll;
+            string cacheValue = await memCachedService.Get<string>(cacheKey);
+
+            IEnumerable<TestModel> models;
+
+            if (!string.IsNullOrEmpty(cacheValue))
+            {
+                models = JsonConvert.DeserializeObject<IEnumerable<TestModel>>(cacheValue);
+            }
+            else
+            {
+                models = await repo.GetAll();
+                _ = await memCachedService.Set(cacheKey, JsonConvert.SerializeObject(models));
+            }
+
+            return models;
         }
 
         /// <summary>
@@ -37,7 +58,22 @@ namespace Backend.Services
         /// <returns></returns>
         public async Task<TestModel> Get(int id)
         {
-            return await repo.Get(id);
+            string cacheKey = $"{MemCachedType.Get}{id}";
+            string cacheValue = await memCachedService.Get<string>(cacheKey);
+
+            TestModel model;
+
+            if (!string.IsNullOrEmpty(cacheValue))
+            {
+                model = JsonConvert.DeserializeObject<TestModel>(cacheValue);
+            }
+            else
+            {
+                model = await repo.Get(id);
+                _ = await memCachedService.Set(cacheKey, JsonConvert.SerializeObject(model));
+            }
+
+            return model;
         }
     }
 }

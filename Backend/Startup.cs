@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Backend.Interfaces;
 using Backend.Middlewares;
 using Backend.Repositories;
 using Backend.Services;
+using Enyim.Caching.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,8 @@ namespace Backend
         private readonly string swaggerEndpoint;
 
         private readonly string apiKeyName;
+
+        private readonly IEnumerable<Server> memCachedServers;
 
         /// <summary>
         /// 
@@ -51,6 +55,8 @@ namespace Backend
             swaggerEndpoint = configuration.GetValue<string>("Swagger:Endpoint");
 
             apiKeyName = configuration.GetValue<string>("Authorization:ApiKeyName");
+
+            memCachedServers = configuration.GetSection("MemCached:Servers").Get<IEnumerable<Server>>();
         }
 
         /// <summary>
@@ -68,11 +74,18 @@ namespace Backend
                 .AddSingleton<IMapper>(new Mapper(AutoMapperSetup.SetupMapping()))
                 .AddSingleton<IDapperCore>(new DapperCore(configuration.GetConnectionString("DataSource")))
                 .AddSingleton<IDapperAsyncService, DapperAsyncService>()
+                .AddSingleton<IMemCachedService, MemCachedService>()
                 .AddSingleton<ITestRepository, TestRepository>()
                 .AddSingleton<TestService>()
             ;
 
             services.AddScoped<AuthFilter>();
+
+            services
+                .AddDistributedMemoryCache()
+                .AddEnyimMemcached(memcachedClientOptions => {
+                    memcachedClientOptions.Servers = memCachedServers.ToList();
+                });
 
             services.AddSwaggerGen(opt =>
             {
