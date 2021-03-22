@@ -10,8 +10,8 @@ A starter .NET Core project with Dapper & MySQL and some preset features:
 - User secrets
 - AppSettings info in object class
 - MemCached
+- Sentry
 - AWS S3 (coming soon)
-- Sentry (coming soon)
 - ClientCaching (coming soon)
 
 ## Commit legend:
