@@ -37,6 +37,7 @@ namespace Backend.Services
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
+        /// <param name="cacheDuration"></param>
         /// <returns></returns>
         public async Task<bool> Set<T>(string key, T value, int cacheDuration = 300)
         {

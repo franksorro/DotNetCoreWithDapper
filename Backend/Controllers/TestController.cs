@@ -17,6 +17,8 @@ namespace Backend.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="service"></param>
+        /// <param name="logger"></param>
         public TestController(
             TestService service,
             ILogger<TestController> logger)

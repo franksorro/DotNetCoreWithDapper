@@ -23,5 +23,7 @@
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.11.0" />
     <PackageReference Include="EnyimMemcachedCore" Version="2.5.3" />
     <PackageReference Include="Sentry.AspNetCore" Version="3.1.0" />
+    <PackageReference Include="AWSSDK.S3" Version="3.5.10" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.101" />
   </ItemGroup>
 </Project>

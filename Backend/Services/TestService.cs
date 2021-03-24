@@ -18,7 +18,8 @@ namespace Backend.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="service"></param>
+        /// <param name="repo"></param>
+        /// <param name="memCachedService"></param>
         public TestService(
             ITestRepository repo,
             IMemCachedService memCachedService)

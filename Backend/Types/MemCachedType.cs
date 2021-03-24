@@ -1,5 +1,8 @@
 ﻿namespace Backend.Types
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class MemCachedType
     {
         public const string GetAll = "api_get_all";

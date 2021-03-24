@@ -15,6 +15,7 @@ namespace Backend.Repositories
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="service"></param>
         public TestRepository(IDapperAsyncService service)
         {
             this.service = service;

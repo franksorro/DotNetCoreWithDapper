@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Amazon.Runtime;
+using Amazon.S3;
 using AutoMapper;
 using Backend.Interfaces;
 using Backend.Middlewares;
@@ -118,6 +120,19 @@ namespace Backend
                     }
                 });
             });
+
+            //---AWS setup---
+            var awsOptions = configuration.GetAWSOptions();
+            awsOptions.Credentials = new BasicAWSCredentials(
+                configuration.GetValue<string>("AWS:AccessKeyId"),
+                configuration.GetValue<string>("AWS:AWSSecretKey")
+            );
+
+            services
+                .AddAWSService<IAmazonS3>(awsOptions)
+                .AddSingleton<IS3Service, S3Service>()
+            ;
+            //---*---
         }
 
         /// <summary>

@@ -16,6 +16,7 @@ namespace Backend.Middlewares
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="settings"></param>
         public AuthFilter(
             IOptions<AppSettings> settings)
         {
