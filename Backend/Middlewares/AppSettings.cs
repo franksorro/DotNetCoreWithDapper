@@ -1,4 +1,7 @@
-﻿namespace Backend.Middlewares
+﻿using Enyim.Caching.Configuration;
+using System.Collections.Generic;
+
+namespace Backend.Middlewares
 {
     /// <summary>
     /// 
@@ -14,6 +17,11 @@
         /// 
         /// </summary>
         public AWSSettings AWS { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public MemCachedSettings MemCached { get; set; }
     }
 
     /// <summary>
@@ -51,5 +59,21 @@
         /// 
         /// </summary>
         public string Region { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class MemCachedSettings
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Enabled { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEnumerable<Server> Servers { get; set; }
     }
 }

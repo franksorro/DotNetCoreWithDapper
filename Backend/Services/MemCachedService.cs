@@ -1,5 +1,7 @@
 ﻿using Backend.Interfaces;
+using Backend.Middlewares;
 using Enyim.Caching;
+using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
 namespace Backend.Services
@@ -10,14 +12,19 @@ namespace Backend.Services
     public class MemCachedService : IMemCachedService
     {
         private readonly IMemcachedClient memCachedClient;
+        private readonly AppSettings settings;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="memCachedClient"></param>
-        public MemCachedService(IMemcachedClient memCachedClient)
+        /// <param name="settings"></param>
+        public MemCachedService(
+            IMemcachedClient memCachedClient,
+            IOptions<AppSettings> settings)
         {
             this.memCachedClient = memCachedClient;
+            this.settings = settings.Value;
         }
 
         /// <summary>
@@ -28,6 +35,9 @@ namespace Backend.Services
         /// <returns></returns>
         public async Task<T> Get<T>(string key)
         {
+            if (!settings.MemCached.Enabled)
+                return default;
+
             return await memCachedClient.GetValueAsync<T>(key);
         }
 
@@ -41,6 +51,9 @@ namespace Backend.Services
         /// <returns></returns>
         public async Task<bool> Set<T>(string key, T value, int cacheDuration = 300)
         {
+            if (!settings.MemCached.Enabled)
+                return false;
+
             return await memCachedClient.SetAsync(key, value, cacheDuration);
         }
 
@@ -51,6 +64,9 @@ namespace Backend.Services
         /// <returns></returns>
         public async Task<bool> Remove(string key)
         {
+            if (!settings.MemCached.Enabled)
+                return false;
+
             return await memCachedClient.RemoveAsync(key);
         }
     }

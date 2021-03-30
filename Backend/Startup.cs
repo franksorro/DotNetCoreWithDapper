@@ -31,6 +31,7 @@ namespace Backend
 
         private readonly string apiKeyName;
 
+        private readonly bool memCachedCheck;
         private readonly IEnumerable<Server> memCachedServers;
 
         /// <summary>
@@ -58,6 +59,7 @@ namespace Backend
 
             apiKeyName = configuration.GetValue<string>("Authorization:ApiKeyName");
 
+            memCachedCheck = configuration.GetValue<bool>("MemCached:Enabled");
             memCachedServers = configuration.GetSection("MemCached:Servers").Get<IEnumerable<Server>>();
         }
 
@@ -83,11 +85,12 @@ namespace Backend
 
             services.AddScoped<AuthFilter>();
 
-            services
-                .AddDistributedMemoryCache()
-                .AddEnyimMemcached(memcachedClientOptions => {
-                    memcachedClientOptions.Servers = memCachedServers.ToList();
-                });
+            if (memCachedCheck)
+                services
+                    .AddDistributedMemoryCache()
+                    .AddEnyimMemcached(memcachedClientOptions => {
+                        memcachedClientOptions.Servers = memCachedServers.ToList();
+                    });
 
             services.AddSwaggerGen(opt =>
             {
