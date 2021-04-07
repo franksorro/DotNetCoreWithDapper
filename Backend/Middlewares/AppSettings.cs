@@ -22,6 +22,11 @@ namespace Backend.Middlewares
         /// 
         /// </summary>
         public MemCachedSettings MemCached { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ClientCacheSettings ClientCache { get; set; }
     }
 
     /// <summary>
@@ -75,5 +80,16 @@ namespace Backend.Middlewares
         /// 
         /// </summary>
         public IEnumerable<Server> Servers { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class ClientCacheSettings
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Enabled { get; set; }
     }
 }

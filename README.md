@@ -12,7 +12,7 @@ A starter .NET Core project with Dapper & MySQL and some preset features:
 - MemCached
 - Sentry
 - AWS S3
-- ClientCaching (coming soon)
+- ClientCaching
 
 ## Commit legend:
 ```sh

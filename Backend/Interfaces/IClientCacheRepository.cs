@@ -7,26 +7,27 @@ namespace Backend.Interfaces
     /// <summary>
     /// 
     /// </summary>
-    public interface ITestRepository
+    public interface IClientCacheRepository
     {
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<TestModel>> GetAll();
+        Task<IEnumerable<ClientCacheModel>> GetAll();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="cacheKey"></param>
         /// <returns></returns>
-        Task<TestModel> Get(int id);
+        Task<ClientCacheModel> Get(string cacheKey);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="cacheKey"></param>
+        /// <param name="cacheValue"></param>
         /// <returns></returns>
-        Task<bool> Add(TestModel model);
+        Task<bool> Set(string cacheKey, long cacheValue);
     }
 }

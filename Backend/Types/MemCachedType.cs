@@ -5,7 +5,20 @@
     /// </summary>
     public class MemCachedType
     {
-        public const string GetAll = "api_get_all";
-        public const string Get = "api_get_";
+        /// <summary>
+        /// 
+        /// </summary>
+        public class Test
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            public const string GetAll = "test_get_all";
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public const string Get = "test_get_";
+        }
     }
 }

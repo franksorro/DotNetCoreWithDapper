@@ -1,5 +1,7 @@
-﻿using Backend.Models;
+﻿using Backend.Middlewares;
+using Backend.Models;
 using Backend.Services;
+using Backend.Types;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -31,7 +33,10 @@ namespace Backend.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [
+            HttpGet, 
+            TypeFilter(typeof(HeaderFilter), Arguments = new object[] { ClientCacheType.Test.GetAll })
+        ]
         public async Task<IActionResult> Get()
         {
             logger.LogInformation("Get service called");
@@ -44,7 +49,10 @@ namespace Backend.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}")]
+        [
+            HttpGet("{id}"),
+            TypeFilter(typeof(HeaderFilter), Arguments = new object[] { ClientCacheType.Test.GetAll })
+        ]
         public async Task<IActionResult> Get(int id)
         {
             TestModel model = await service.Get(id);
@@ -56,10 +64,20 @@ namespace Backend.Controllers
                 return NotFound("Description not found");
             }
 
-
             logger.LogInformation("GetById service called");
 
             return Ok(model);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] TestModel model)
+        {
+            return Ok(await service.Add(model));
         }
     }
 }

@@ -78,19 +78,22 @@ namespace Backend
                 .AddSingleton<IMapper>(new Mapper(AutoMapperSetup.SetupMapping()))
                 .AddSingleton<IDapperCore>(new DapperCore(configuration.GetConnectionString("DataSource")))
                 .AddSingleton<IDapperAsyncService, DapperAsyncService>()
+                .AddSingleton<IClientCacheRepository, ClientCacheRepository>()
                 .AddSingleton<IMemCachedService, MemCachedService>()
+                .AddSingleton<IClientCacheService, ClientCacheService>()
+                .AddSingleton<AuthFilter>()
+            ;
+
+            services
                 .AddSingleton<ITestRepository, TestRepository>()
                 .AddSingleton<TestService>()
             ;
 
-            services.AddScoped<AuthFilter>();
-
-            if (memCachedCheck)
-                services
-                    .AddDistributedMemoryCache()
-                    .AddEnyimMemcached(memcachedClientOptions => {
-                        memcachedClientOptions.Servers = memCachedServers.ToList();
-                    });
+            services
+                .AddDistributedMemoryCache()
+                .AddEnyimMemcached(memcachedClientOptions => {
+                    memcachedClientOptions.Servers = memCachedServers.ToList();
+                });
 
             services.AddSwaggerGen(opt =>
             {

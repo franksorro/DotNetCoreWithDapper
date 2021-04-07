@@ -43,12 +43,35 @@ namespace Backend.Repositories
             });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<bool> Add(TestModel model)
+        {
+            return await service.InsertAsync<int>(SQL_Insert, new
+            {
+                model.Description
+            }) > 0;
+        }
+
         #region Queries
         private readonly string SQL_Select = @"
         SELECT
             id,
             description
         FROM test_table";
+
+        private readonly string SQL_Insert = @"
+        INSERT INTO test_table
+        (
+            description
+        ) VALUES (
+            @description
+        );
+
+        SELECT LAST_INSERT_ID()";
         #endregion
     }
 }
