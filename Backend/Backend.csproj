@@ -5,14 +5,13 @@
     <UserSecretsId>40ddedd5-6853-4d12-b11b-b084bdbb14f8</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="Dapper" Version="2.0.78" />
-    <PackageReference Include="MySql.Data" Version="8.0.23" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
-    <PackageReference Include="NLog.Web.AspNetCore" Version="4.11.0" />
-    <PackageReference Include="EnyimMemcachedCore" Version="2.5.3" />
-    <PackageReference Include="Sentry.AspNetCore" Version="3.1.0" />
-    <PackageReference Include="AWSSDK.S3" Version="3.5.10" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.101" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.2" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.12.0" />
+    <PackageReference Include="Sentry.AspNetCore" Version="3.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

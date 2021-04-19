@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Backend.Extensions
+namespace Core.Extensions
 {
     /// <summary>
     /// 

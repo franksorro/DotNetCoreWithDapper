@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 
-namespace Backend.Interfaces
+namespace Core.Interfaces
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IDapperCore
+    public interface IDapperAsyncService
     {
         /// <summary>
         /// 
@@ -16,7 +17,7 @@ namespace Backend.Interfaces
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        List<T> GetAll<T>(string sql, object dbParams, CommandType commandType);
+        Task<List<T>> GetsAsync<T>(string sql, object dbParams = null, CommandType commandType = CommandType.Text);
 
         /// <summary>
         /// 
@@ -26,7 +27,7 @@ namespace Backend.Interfaces
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        T Get<T>(string sql, object dbParams, CommandType commandType);
+        Task<T> GetAsync<T>(string sql, object dbParams = null, CommandType commandType = CommandType.Text);
 
         /// <summary>
         /// 
@@ -36,7 +37,7 @@ namespace Backend.Interfaces
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        T Insert<T>(string sql, object dbParams, CommandType commandType);
+        Task<T> InsertAsync<T>(string sql, object dbParams = null, CommandType commandType = CommandType.Text);
 
         /// <summary>
         /// 
@@ -46,6 +47,6 @@ namespace Backend.Interfaces
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        T Update<T>(string sql, object dbParams, CommandType commandType);
+        Task<T> UpdateAsync<T>(string sql, object dbParams = null, CommandType commandType = CommandType.Text);
     }
 }

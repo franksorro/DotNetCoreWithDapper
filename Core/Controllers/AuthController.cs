@@ -1,7 +1,7 @@
-﻿using Backend.Middlewares;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Core.Middlewares;
 
-namespace Backend.Controllers
+namespace Core.Controllers
 {
     /// <summary>
     /// 

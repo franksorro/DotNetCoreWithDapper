@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Backend.Interfaces;
-using Backend.Middlewares;
-using Backend.Models;
-using Backend.Types;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Core.Middlewares;
+using Core.Interfaces;
+using Backend.Models;
+using Backend.Types;
+using Backend.Interfaces;
 
 namespace Backend.Services
 {

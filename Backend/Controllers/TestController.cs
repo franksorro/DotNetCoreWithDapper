@@ -1,10 +1,11 @@
-﻿using Backend.Middlewares;
-using Backend.Models;
-using Backend.Services;
-using Backend.Types;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Core.Middlewares;
+using Core.Controllers;
+using Backend.Services;
+using Backend.Types;
+using Backend.Models;
 
 namespace Backend.Controllers
 {

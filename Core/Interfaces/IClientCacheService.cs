@@ -1,7 +1,7 @@
-﻿using Backend.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Core.Models;
 
-namespace Backend.Interfaces
+namespace Core.Interfaces
 {
     /// <summary>
     /// 

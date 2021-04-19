@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Options;
-using Backend.Models;
-using Backend.Middlewares;
-using Backend.Interfaces;
-using Backend.Extensions;
+using Core.Models;
+using Core.Middlewares;
+using Core.Interfaces;
+using Core.Extensions;
 
-namespace Backend.Services
+namespace Core.Services
 {
     /// <summary>
     /// 

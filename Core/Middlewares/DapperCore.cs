@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Backend.Interfaces;
 using Dapper;
 using MySql.Data.MySqlClient;
+using Core.Interfaces;
 
-namespace Backend.Middlewares
+namespace Core.Middlewares
 {
     /// <summary>
     /// 

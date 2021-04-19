@@ -1,8 +1,8 @@
 ﻿using System;
 using AutoMapper;
-using Backend.Extensions;
+using Core.Extensions;
 
-namespace Backend.Middlewares
+namespace Core.Middlewares
 {
     /// <summary>
     /// 

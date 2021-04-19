@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 
-namespace Backend.Middlewares
+namespace Core.Middlewares
 {
     /// <summary>
     /// 

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Backend.Models;
+using Core.Models;
 
-namespace Backend.Interfaces
+namespace Core.Interfaces
 {
     public interface IS3Service
     {

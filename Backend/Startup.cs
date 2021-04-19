@@ -4,9 +4,12 @@ using Amazon.Runtime;
 using Amazon.S3;
 using AutoMapper;
 using Backend.Interfaces;
-using Backend.Middlewares;
 using Backend.Repositories;
 using Backend.Services;
+using Core.Interfaces;
+using Core.Middlewares;
+using Core.Repositories;
+using Core.Services;
 using Enyim.Caching.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +34,6 @@ namespace Backend
 
         private readonly string apiKeyName;
 
-        private readonly bool memCachedCheck;
         private readonly IEnumerable<Server> memCachedServers;
 
         /// <summary>
@@ -59,7 +61,6 @@ namespace Backend
 
             apiKeyName = configuration.GetValue<string>("Authorization:ApiKeyName");
 
-            memCachedCheck = configuration.GetValue<bool>("MemCached:Enabled");
             memCachedServers = configuration.GetSection("MemCached:Servers").Get<IEnumerable<Server>>();
         }
 

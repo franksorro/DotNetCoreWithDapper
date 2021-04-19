@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Backend.Interfaces;
+using Core.Interfaces;
 
-namespace Backend.Services
+namespace Core.Services
 {
     /// <summary>
     /// 

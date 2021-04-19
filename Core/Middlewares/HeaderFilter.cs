@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Backend.Extensions;
-using Backend.Interfaces;
+using Core.Extensions;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Backend.Models;
+using Core.Models;
 
-namespace Backend.Middlewares
+namespace Core.Middlewares
 {
     /// <summary>
     /// 

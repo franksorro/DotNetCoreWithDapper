@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Backend.Interfaces;
-using Backend.Models;
+using Core.Interfaces;
+using Core.Models;
 
-namespace Backend.Repositories
+namespace Core.Repositories
 {
     /// <summary>
     /// 

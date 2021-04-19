@@ -1,7 +1,7 @@
 ﻿using Enyim.Caching.Configuration;
 using System.Collections.Generic;
 
-namespace Backend.Middlewares
+namespace Core.Middlewares
 {
     /// <summary>
     /// 

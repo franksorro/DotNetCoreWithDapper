@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Backend.Interfaces
+namespace Core.Interfaces
 {
     /// <summary>
     /// 

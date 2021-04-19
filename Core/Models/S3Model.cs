@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Backend.Models
+namespace Core.Models
 {
     /// <summary>
     /// 

@@ -1,10 +1,10 @@
-﻿using Backend.Interfaces;
-using Backend.Middlewares;
+﻿using Core.Interfaces;
+using Core.Middlewares;
 using Enyim.Caching;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
-namespace Backend.Services
+namespace Core.Services
 {
     /// <summary>
     /// 

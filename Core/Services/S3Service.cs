@@ -1,14 +1,14 @@
 ﻿using System.Threading.Tasks;
-using Amazon.S3;
 using System.Net;
+using System.IO;
+using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Util;
-using System.IO;
 using Amazon.S3.Transfer;
-using Backend.Interfaces;
-using Backend.Models;
+using Core.Interfaces;
+using Core.Models;
 
-namespace Backend.Services
+namespace Core.Services
 {
     /// <summary>
     /// 
