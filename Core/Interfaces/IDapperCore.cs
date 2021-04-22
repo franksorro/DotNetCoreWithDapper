@@ -16,7 +16,7 @@ namespace Core.Interfaces
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        List<T> GetAll<T>(string sql, object dbParams, CommandType commandType);
+        IEnumerable<T> GetAll<T>(string sql, object dbParams, CommandType commandType);
 
         /// <summary>
         /// 

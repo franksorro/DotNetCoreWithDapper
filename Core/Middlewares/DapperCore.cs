@@ -43,9 +43,9 @@ namespace Core.Middlewares
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        public List<T> GetAll<T>(string sql, object dbParams, CommandType commandType)
+        public IEnumerable<T> GetAll<T>(string sql, object dbParams, CommandType commandType)
         {
-            return DbConnection().Query<T>(sql, dbParams, commandType: commandType).ToList();
+            return DbConnection().Query<T>(sql, dbParams, commandType: commandType);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Core.Middlewares
         /// <returns></returns>
         public T Get<T>(string sql, object dbParams, CommandType commandType)
         {
-            return DbConnection().Query<T>(sql, dbParams, commandType: commandType).FirstOrDefault();
+            return DbConnection().QueryFirstOrDefault<T>(sql, dbParams, commandType: commandType);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Core.Middlewares
                 using var tran = db.BeginTransaction();
                 try
                 {
-                    result = db.Query<T>(sql, dbParams, commandType: commandType, transaction: tran).FirstOrDefault();
+                    result = db.QuerySingle<T>(sql, dbParams, commandType: commandType, transaction: tran);
                     tran.Commit();
                 }
                 catch (Exception ex)
@@ -126,7 +126,7 @@ namespace Core.Middlewares
                 using var tran = db.BeginTransaction();
                 try
                 {
-                    result = db.Query<T>(sql, dbParams, commandType: commandType, transaction: tran).FirstOrDefault();
+                    result = db.ExecuteScalar<T>(sql, dbParams, commandType: commandType, transaction: tran);
                     tran.Commit();
                 }
                 catch (Exception ex)

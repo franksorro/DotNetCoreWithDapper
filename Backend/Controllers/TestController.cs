@@ -6,6 +6,7 @@ using Core.Controllers;
 using Backend.Services;
 using Backend.Types;
 using Backend.Models;
+using Microsoft.Extensions.Localization;
 
 namespace Backend.Controllers
 {
@@ -16,6 +17,7 @@ namespace Backend.Controllers
     {
         private readonly TestService service;
         private readonly ILogger<TestController> logger;
+        private readonly IStringLocalizer<TestController> localizer;
 
         /// <summary>
         /// 
@@ -24,10 +26,12 @@ namespace Backend.Controllers
         /// <param name="logger"></param>
         public TestController(
             TestService service,
-            ILogger<TestController> logger)
+            ILogger<TestController> logger,
+            IStringLocalizer<TestController> localizer)
         {
             this.service = service;
             this.logger = logger;
+            this.localizer = localizer;
         }
 
         /// <summary>
@@ -62,7 +66,7 @@ namespace Backend.Controllers
             {
                 logger.LogError($"GetById {id} not found");
 
-                return NotFound("Description not found");
+                return NotFound(string.Format(localizer["NotFound"].Value, id));
             }
 
             logger.LogInformation("GetById service called");

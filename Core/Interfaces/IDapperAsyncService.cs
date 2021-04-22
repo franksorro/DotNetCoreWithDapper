@@ -17,7 +17,7 @@ namespace Core.Interfaces
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        Task<List<T>> GetsAsync<T>(string sql, object dbParams = null, CommandType commandType = CommandType.Text);
+        Task<IEnumerable<T>> GetsAsync<T>(string sql, object dbParams = null, CommandType commandType = CommandType.Text);
 
         /// <summary>
         /// 

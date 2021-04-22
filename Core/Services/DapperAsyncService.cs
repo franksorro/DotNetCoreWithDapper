@@ -29,7 +29,7 @@ namespace Core.Services
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        public async Task<List<T>> GetsAsync<T>(string sql, object dbParams = null, CommandType commandType = CommandType.Text)
+        public async Task<IEnumerable<T>> GetsAsync<T>(string sql, object dbParams = null, CommandType commandType = CommandType.Text)
         {
             return await Task.FromResult(dapperCore.GetAll<T>(sql, dbParams, commandType));
         }

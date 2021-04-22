@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Amazon.Runtime;
 using Amazon.S3;
@@ -13,9 +14,11 @@ using Core.Services;
 using Enyim.Caching.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace Backend
@@ -70,6 +73,26 @@ namespace Backend
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(opts =>
+            {
+                opts.ResourcesPath = "Resources";
+            });
+
+            services.AddMvc().AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(opts =>
+            {
+                List<CultureInfo> supportedCultures = new List<CultureInfo>
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("it-IT")
+                };
+
+                opts.DefaultRequestCulture = new RequestCulture(culture: supportedCultures.First(), uiCulture: supportedCultures.First());
+                opts.SupportedCultures = supportedCultures;
+                opts.SupportedUICultures = supportedCultures;
+            });
+
             services
                 .Configure<AppSettings>(configuration)
                 .AddControllers()
@@ -96,23 +119,23 @@ namespace Backend
                     memcachedClientOptions.Servers = memCachedServers.ToList();
                 });
 
-            services.AddSwaggerGen(opt =>
+            services.AddSwaggerGen(opts =>
             {
-                opt.SwaggerDoc(
+                opts.SwaggerDoc(
                     name: swaggerName, new OpenApiInfo
                     {
                         Title = swaggerTitle,
                         Version = swaggerVersion
                     });
 
-                opt.AddSecurityDefinition(apiKeyName, new OpenApiSecurityScheme
+                opts.AddSecurityDefinition(apiKeyName, new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.ApiKey,
                     Name = apiKeyName,
                     In = ParameterLocation.Header
                 });
 
-                opt.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                opts.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
                     {
                         new OpenApiSecurityScheme
@@ -151,6 +174,9 @@ namespace Backend
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
+
+            IOptions<RequestLocalizationOptions> localizeOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(localizeOptions.Value);
 
             app
                 .UseSwagger()

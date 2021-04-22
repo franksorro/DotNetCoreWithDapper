@@ -5,7 +5,7 @@
     <UserSecretsId>40ddedd5-6853-4d12-b11b-b084bdbb14f8</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.3" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.12.0" />
     <PackageReference Include="Sentry.AspNetCore" Version="3.3.1" />
   </ItemGroup>
@@ -13,5 +13,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Controllers\" />
   </ItemGroup>
 </Project>

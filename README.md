@@ -13,6 +13,7 @@ A starter .NET Core project with Dapper & MySQL and some preset features:
 - Sentry
 - AWS S3
 - ClientCaching
+- Localization
 
 ## Commit legend:
 ```sh
@@ -21,6 +22,11 @@ A starter .NET Core project with Dapper & MySQL and some preset features:
 ! Bugfix
 - Deprecated feature
 ```
+
+## Support
+Do you like this repository? Please, support author buying him a coffee
+
+[![BuyMeACoffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/franksorro)
 
 ## License
 ```sh
