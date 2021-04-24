@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using Dapper;
 using MySql.Data.MySqlClient;
 using Core.Interfaces;
+using System.Threading.Tasks;
 
 namespace Core.Middlewares
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DapperCore : IDapperCore
+    public class DapperSetup : IDapperSetup
     {
         private readonly IDbConnection connection;
         private readonly string connectionString;
@@ -21,7 +21,7 @@ namespace Core.Middlewares
         /// </summary>
         /// <param name="connectionString"></param>
         /// <param name="connection"></param>
-        public DapperCore(string connectionString, IDbConnection connection = null)
+        public DapperSetup(string connectionString, IDbConnection connection = null)
         {
             if (string.IsNullOrEmpty(connectionString))
                 throw new ArgumentException("DataSource string connection error");
@@ -43,9 +43,9 @@ namespace Core.Middlewares
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        public IEnumerable<T> GetAll<T>(string sql, object dbParams, CommandType commandType)
+        public async Task<IEnumerable<T>> GetAll<T>(string sql, object dbParams, CommandType commandType)
         {
-            return DbConnection().Query<T>(sql, dbParams, commandType: commandType);
+            return await DbConnection().QueryAsync<T>(sql, dbParams, commandType: commandType);
         }
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace Core.Middlewares
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        public T Get<T>(string sql, object dbParams, CommandType commandType)
+        public async Task<T> Get<T>(string sql, object dbParams, CommandType commandType)
         {
-            return DbConnection().QueryFirstOrDefault<T>(sql, dbParams, commandType: commandType);
+            return await DbConnection().QueryFirstOrDefaultAsync<T>(sql, dbParams, commandType: commandType);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Core.Middlewares
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        public T Insert<T>(string sql, object dbParams, CommandType commandType)
+        public async Task<T> Insert<T>(string sql, object dbParams, CommandType commandType)
         {
             T result;
             using IDbConnection db = DbConnection();
@@ -82,7 +82,7 @@ namespace Core.Middlewares
                 using var tran = db.BeginTransaction();
                 try
                 {
-                    result = db.QuerySingle<T>(sql, dbParams, commandType: commandType, transaction: tran);
+                    result = await db.QuerySingleAsync<T>(sql, dbParams, commandType: commandType, transaction: tran);
                     tran.Commit();
                 }
                 catch (Exception ex)
@@ -113,7 +113,7 @@ namespace Core.Middlewares
         /// <param name="dbParams"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        public T Update<T>(string sql, object dbParams, CommandType commandType)
+        public async Task<T> Execute<T>(string sql, object dbParams, CommandType commandType)
         {
             T result;
             using IDbConnection db = DbConnection();
@@ -126,7 +126,7 @@ namespace Core.Middlewares
                 using var tran = db.BeginTransaction();
                 try
                 {
-                    result = db.ExecuteScalar<T>(sql, dbParams, commandType: commandType, transaction: tran);
+                    result = await db.ExecuteScalarAsync<T>(sql, dbParams, commandType: commandType, transaction: tran);
                     tran.Commit();
                 }
                 catch (Exception ex)

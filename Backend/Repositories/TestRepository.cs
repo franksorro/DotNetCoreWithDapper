@@ -11,15 +11,15 @@ namespace Backend.Repositories
     /// </summary>
     public class TestRepository : ITestRepository
     {
-        private readonly IDapperAsyncService service;
+        private readonly IDapperSetup dapper;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="service"></param>
-        public TestRepository(IDapperAsyncService service)
+        public TestRepository(IDapperSetup dapper)
         {
-            this.service = service;
+            this.dapper = dapper;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Backend.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<TestModel>> GetAll()
         {
-            return await service.GetsAsync<TestModel>(SQL_Select);
+            return await dapper.GetAll<TestModel>(SQL_Select);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Backend.Repositories
         /// <returns></returns>
         public async Task<TestModel> Get(int id)
         {
-            return await service.GetAsync<TestModel>($"{SQL_Select} WHERE id = @id", new
+            return await dapper.Get<TestModel>($"{SQL_Select} WHERE id = @id", new
             {
                 id
             });
@@ -51,7 +51,7 @@ namespace Backend.Repositories
         /// <returns></returns>
         public async Task<bool> Add(TestModel model)
         {
-            return await service.InsertAsync<int>(SQL_Insert, new
+            return await dapper.Insert<int>(SQL_Insert, new
             {
                 model.Description
             }) > 0;

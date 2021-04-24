@@ -100,8 +100,7 @@ namespace Backend
 
             services
                 .AddSingleton<IMapper>(new Mapper(AutoMapperSetup.SetupMapping()))
-                .AddSingleton<IDapperCore>(new DapperCore(configuration.GetConnectionString("DataSource")))
-                .AddSingleton<IDapperAsyncService, DapperAsyncService>()
+                .AddSingleton<IDapperSetup>(new DapperSetup(configuration.GetConnectionString("DataSource")))
                 .AddSingleton<IClientCacheRepository, ClientCacheRepository>()
                 .AddSingleton<IMemCachedService, MemCachedService>()
                 .AddSingleton<IClientCacheService, ClientCacheService>()
