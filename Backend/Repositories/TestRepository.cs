@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core.Interfaces;
 using Backend.Interfaces;
 using Backend.Models;
 
@@ -11,13 +10,13 @@ namespace Backend.Repositories
     /// </summary>
     public class TestRepository : ITestRepository
     {
-        private readonly IDapperSetup dapper;
+        private readonly IFSDapper dapper;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="service"></param>
-        public TestRepository(IDapperSetup dapper)
+        public TestRepository(IFSDapper dapper)
         {
             this.dapper = dapper;
         }
@@ -28,7 +27,7 @@ namespace Backend.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<TestModel>> GetAll()
         {
-            return await dapper.GetAll<TestModel>(SQL_Select);
+            return await dapper.SelectAsync<TestModel>(SQL_Select);
         }
 
         /// <summary>
@@ -38,7 +37,7 @@ namespace Backend.Repositories
         /// <returns></returns>
         public async Task<TestModel> Get(int id)
         {
-            return await dapper.Get<TestModel>($"{SQL_Select} WHERE id = @id", new
+            return await dapper.SelectSingleAsync<TestModel>($"{SQL_Select} WHERE id = @id", new
             {
                 id
             });
@@ -51,7 +50,7 @@ namespace Backend.Repositories
         /// <returns></returns>
         public async Task<bool> Add(TestModel model)
         {
-            return await dapper.Insert<int>(SQL_Insert, new
+            return await dapper.ExecuteAsync<int>(SQL_Insert, new
             {
                 model.Description
             }) > 0;

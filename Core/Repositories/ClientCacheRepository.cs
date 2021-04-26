@@ -10,13 +10,13 @@ namespace Core.Repositories
     /// </summary>
     public class ClientCacheRepository : IClientCacheRepository
     {
-        private readonly IDapperSetup dapper;
+        private readonly IFSDapper dapper;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="service"></param>
-        public ClientCacheRepository(IDapperSetup dapper)
+        public ClientCacheRepository(IFSDapper dapper)
         {
             this.dapper = dapper;
         }
@@ -27,7 +27,7 @@ namespace Core.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<ClientCacheModel>> GetAll()
         {
-            return await dapper.GetAll<ClientCacheModel>(SQL_Select);
+            return await dapper.SelectAsync<ClientCacheModel>(SQL_Select);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Core.Repositories
         /// <returns></returns>
         public async Task<ClientCacheModel> Get(string cacheKey)
         {
-            return await dapper.Get<ClientCacheModel>($"{SQL_Select} WHERE `cache_key` = @cacheKey", new
+            return await dapper.SelectSingleAsync<ClientCacheModel>($"{SQL_Select} WHERE `cache_key` = @cacheKey", new
             {
                 cacheKey
             });
@@ -51,7 +51,7 @@ namespace Core.Repositories
         /// <returns></returns>
         public async Task<bool> Set(string cacheKey, long cacheValue)
         {
-            return await dapper.Insert<bool>(SQL_InsertOrUpdate, new
+            return await dapper.ExecuteAsync<bool>(SQL_InsertOrUpdate, new
             {
                 cacheKey,
                 cacheValue
