@@ -21,6 +21,6 @@
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.0.16" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.0.1" />
-    <PackageReference Include="FSDapper" Version="1.0.0" />
+    <PackageReference Include="FS.Dapper" Version="1.0.0" />
   </ItemGroup>
 </Project>

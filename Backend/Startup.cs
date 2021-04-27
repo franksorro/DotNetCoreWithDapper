@@ -12,6 +12,7 @@ using Core.Middlewares;
 using Core.Repositories;
 using Core.Services;
 using Enyim.Caching.Configuration;
+using FS.Dapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -100,7 +101,7 @@ namespace Backend
 
             services
                 .AddSingleton<IMapper>(new Mapper(AutoMapperSetup.SetupMapping()))
-                .AddSingleton<IFSDapper>(new FSDapper(configuration.GetConnectionString("DataSource")))
+                .AddSingleton<IDapperManager>(new DapperManager(configuration.GetConnectionString("DataSource")))
                 .AddSingleton<IClientCacheRepository, ClientCacheRepository>()
                 .AddSingleton<IMemCachedService, MemCachedService>()
                 .AddSingleton<IClientCacheService, ClientCacheService>()

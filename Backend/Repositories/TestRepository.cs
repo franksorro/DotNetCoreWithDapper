@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Backend.Interfaces;
 using Backend.Models;
+using FS.Dapper;
 
 namespace Backend.Repositories
 {
@@ -10,13 +11,13 @@ namespace Backend.Repositories
     /// </summary>
     public class TestRepository : ITestRepository
     {
-        private readonly IFSDapper dapper;
+        private readonly IDapperManager dapper;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="service"></param>
-        public TestRepository(IFSDapper dapper)
+        public TestRepository(IDapperManager dapper)
         {
             this.dapper = dapper;
         }
