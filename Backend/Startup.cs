@@ -12,10 +12,14 @@ using Core.Middlewares;
 using Core.Repositories;
 using Core.Services;
 using Enyim.Caching.Configuration;
-using FS.Dapper;
+using FS.AWS.Interfaces;
+using FS.AWS.Services;
+using FS.Interfaces;
+using FS.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,10 +35,7 @@ namespace Backend
     {
         private readonly IConfiguration configuration;
 
-        private readonly string swaggerName;
-        private readonly string swaggerTitle;
-        private readonly string swaggerVersion;
-        private readonly string swaggerEndpoint;
+        private readonly string swaggerTitle = "Starting .NET Core with Dapper project";
 
         private readonly string apiKeyName;
 
@@ -57,11 +58,6 @@ namespace Backend
                 builder.AddUserSecrets<Program>();
 
             configuration = builder.Build();
-
-            swaggerName = configuration.GetValue<string>("Swagger:Name");
-            swaggerTitle = configuration.GetValue<string>("Swagger:Title");
-            swaggerVersion = configuration.GetValue<string>("Swagger:Version");
-            swaggerEndpoint = configuration.GetValue<string>("Swagger:Endpoint");
 
             apiKeyName = configuration.GetValue<string>("Authorization:ApiKeyName");
 
@@ -99,9 +95,16 @@ namespace Backend
                 .AddControllers()
             ;
 
+            services.AddApiVersioning(setup =>
+            {
+                setup.DefaultApiVersion = new ApiVersion(1, 0);
+                setup.AssumeDefaultVersionWhenUnspecified = true;
+                setup.ReportApiVersions = true;
+            });
+
             services
                 .AddSingleton<IMapper>(new Mapper(AutoMapperSetup.SetupMapping()))
-                .AddSingleton<IDapperManager>(new DapperManager(configuration.GetConnectionString("DataSource")))
+                .AddSingleton<IDapperService>(new DapperService(configuration.GetConnectionString("DataSource")))
                 .AddSingleton<IClientCacheRepository, ClientCacheRepository>()
                 .AddSingleton<IMemCachedService, MemCachedService>()
                 .AddSingleton<IClientCacheService, ClientCacheService>()
@@ -122,10 +125,29 @@ namespace Backend
             services.AddSwaggerGen(opts =>
             {
                 opts.SwaggerDoc(
-                    name: swaggerName, new OpenApiInfo
+                    name: "v1", new OpenApiInfo
                     {
                         Title = swaggerTitle,
-                        Version = swaggerVersion
+                        Version = "v2",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "FRΛƝCƎƧCØ ƧØЯRƎƝTIƝØ",
+                            Email = "franksorro@gmail.com",
+                            Url = new System.Uri("https://github.com/franksorro")
+                        }
+                    });
+
+                opts.SwaggerDoc(
+                    name: "v2", new OpenApiInfo
+                    {
+                        Title = swaggerTitle,
+                        Version = "v2",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "FRΛƝCƎƧCØ ƧØЯRƎƝTIƝØ",
+                            Email = "franksorro@gmail.com",
+                            Url = new System.Uri("https://github.com/franksorro")
+                        }
                     });
 
                 opts.AddSecurityDefinition(apiKeyName, new OpenApiSecurityScheme
@@ -182,7 +204,8 @@ namespace Backend
                 .UseSwagger()
                 .UseSwaggerUI(opts =>
                 {
-                    opts.SwaggerEndpoint(url: swaggerEndpoint, name: swaggerName);
+                    opts.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Services collection version 1");
+                    opts.SwaggerEndpoint(url: "/swagger/v2/swagger.json", name: "Services collection version 2");
                     opts.DocumentTitle = swaggerTitle;
                     opts.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
                 });

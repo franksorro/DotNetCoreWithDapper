@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Core.Interfaces;
 using Core.Models;
-using FS.Dapper;
+using FS.Interfaces;
 
 namespace Core.Repositories
 {
@@ -11,13 +11,13 @@ namespace Core.Repositories
     /// </summary>
     public class ClientCacheRepository : IClientCacheRepository
     {
-        private readonly IDapperManager dapper;
+        private readonly IDapperService dapper;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="service"></param>
-        public ClientCacheRepository(IDapperManager dapper)
+        public ClientCacheRepository(IDapperService dapper)
         {
             this.dapper = dapper;
         }

@@ -7,7 +7,7 @@ namespace Core.Controllers
     /// </summary>
     [
         ApiController,
-        Route("api/[controller]/[action]"),
+        Route("api/v{version:apiVersion}/[controller]/[action]"),
         Produces("application/json")
     ]
     public class BaseController : ControllerBase

@@ -13,6 +13,7 @@ namespace Backend.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [ApiExplorerSettings(GroupName = "v1")]
     public class TestController : BaseController
     {
         private readonly TestService service;
@@ -39,7 +40,7 @@ namespace Backend.Controllers
         /// </summary>
         /// <returns></returns>
         [
-            HttpGet, 
+            HttpGet,
             TypeFilter(typeof(HeaderFilter), Arguments = new object[] { ClientCacheType.Test.GetAll })
         ]
         public async Task<IActionResult> Get()

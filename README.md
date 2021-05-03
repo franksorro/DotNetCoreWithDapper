@@ -14,6 +14,7 @@ A starter .NET Core project with Dapper & MySQL and some preset features:
 - AWS S3
 - ClientCaching
 - Localization
+- API versioning
 
 ## Commit legend:
 ```sh
