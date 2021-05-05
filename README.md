@@ -15,6 +15,7 @@ A starter .NET Core project with Dapper & MySQL and some preset features:
 - ClientCaching
 - Localization
 - API versioning
+- AWS DynamoDB
 
 ## Commit legend:
 ```sh

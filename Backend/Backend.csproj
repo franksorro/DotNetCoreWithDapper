@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>40ddedd5-6853-4d12-b11b-b084bdbb14f8</UserSecretsId>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
@@ -10,6 +11,8 @@
     <PackageReference Include="Sentry.AspNetCore" Version="3.3.4" />
     <PackageReference Include="FS.AWS.S3" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.0.17" />
+    <PackageReference Include="FS.AWS.DynamoDB" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

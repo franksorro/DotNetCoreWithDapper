@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Amazon.DynamoDBv2;
 using Amazon.Runtime;
 using Amazon.S3;
 using AutoMapper;
@@ -182,7 +183,9 @@ namespace Backend
 
             services
                 .AddAWSService<IAmazonS3>(awsOptions)
+                .AddAWSService<IAmazonDynamoDB>(awsOptions)
                 .AddSingleton<IS3Service, S3Service>()
+                .AddSingleton<IDynamoDBService, DynamoDBService>()
             ;
             //---*---
         }
