@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Core.Middlewares;
-using Core.Interfaces;
+using FS.Interfaces;
 using Backend.Models;
 using Backend.Types;
 using Backend.Interfaces;

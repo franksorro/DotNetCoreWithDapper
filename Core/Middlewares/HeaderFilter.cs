@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Core.Extensions;
-using Core.Interfaces;
+using FS.Extensions;
+using FS.Interfaces;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Core.Models;
+using FS.Models;
 
 namespace Core.Middlewares
 {

@@ -9,10 +9,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.12.0" />
     <PackageReference Include="Sentry.AspNetCore" Version="3.3.4" />
-    <PackageReference Include="FS.AWS.S3" Version="1.0.0" />
+    <PackageReference Include="FS.AWS.S3" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.0.17" />
-    <PackageReference Include="FS.AWS.DynamoDB" Version="1.0.1" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.0.20" />
+    <PackageReference Include="FS.AWS.DynamoDB" Version="1.0.2" />
+    <PackageReference Include="MySql.Data" Version="8.0.25" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

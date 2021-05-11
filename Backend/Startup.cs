@@ -8,15 +8,11 @@ using AutoMapper;
 using Backend.Interfaces;
 using Backend.Repositories;
 using Backend.Services;
-using Core.Interfaces;
 using Core.Middlewares;
-using Core.Repositories;
-using Core.Services;
-using Enyim.Caching.Configuration;
-using FS.AWS.Interfaces;
-using FS.AWS.Services;
-using FS.Interfaces;
+using FS.Repositories;
 using FS.Services;
+using FS.Interfaces;
+using Enyim.Caching.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -26,6 +22,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using System.Data;
+using MySql.Data.MySqlClient;
+using System;
 
 namespace Backend
 {
@@ -35,6 +34,7 @@ namespace Backend
     public class Startup
     {
         private readonly IConfiguration configuration;
+        private readonly IDbConnection dbConnection;
 
         private readonly string swaggerTitle = "Starting .NET Core with Dapper project";
 
@@ -63,6 +63,10 @@ namespace Backend
             apiKeyName = configuration.GetValue<string>("Authorization:ApiKeyName");
 
             memCachedServers = configuration.GetSection("MemCached:Servers").Get<IEnumerable<Server>>();
+
+            dbConnection = new MySqlConnection(configuration.GetConnectionString("DataSource"));
+            if (dbConnection == null)
+                throw new ArgumentNullException("DataSource connection cannot be null");
         }
 
         /// <summary>
@@ -105,9 +109,9 @@ namespace Backend
 
             services
                 .AddSingleton<IMapper>(new Mapper(AutoMapperSetup.SetupMapping()))
-                .AddSingleton<IDapperService>(new DapperService(configuration.GetConnectionString("DataSource")))
-                .AddSingleton<IClientCacheRepository, ClientCacheRepository>()
+                .AddSingleton<IDapperService>(new DapperService(dbConnection))
                 .AddSingleton<IMemCachedService, MemCachedService>()
+                .AddSingleton<IClientCacheRepository, ClientCacheRepository>()
                 .AddSingleton<IClientCacheService, ClientCacheService>()
                 .AddSingleton<AuthFilter>()
             ;
