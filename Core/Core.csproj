@@ -13,6 +13,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="FS.ClientCache" Version="1.0.13" />
+    <PackageReference Include="FS.ClientCache" Version="1.0.17" />
   </ItemGroup>
 </Project>
